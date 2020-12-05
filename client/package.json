@@ -1,5 +1,5 @@
 {
-  "name": "disharmony",
+  "name": "disharmony-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
