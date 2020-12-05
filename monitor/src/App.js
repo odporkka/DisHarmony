@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
 
-function App() {
+const App = () => {
+  let nodes = [
+    { name: 'node1', id: 1 },
+    { name: 'node2', id: 2 },
+    { name: 'node3', id: 3 }
+  ]
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='container'>
+        <div className='row'>
+          <div className='col'>
+            <header>
+              <h1>DisHarmony monitor</h1>
+            </header>
+          </div>
+        </div>
+        <div className='row'>
+          { nodes.map(n => (
+              <div className='col' key={n.id}>
+                <h4>{n.name}</h4>
+              </div>
+            )
+          )}
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

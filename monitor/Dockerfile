@@ -8,6 +8,8 @@ RUN npm install
 
 COPY src ./src
 COPY public ./public
+COPY server.js ./server.js
+COPY webpack.config.js ./webpack.config.js
 
 EXPOSE 3000
 

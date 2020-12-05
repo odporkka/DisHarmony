@@ -6,13 +6,18 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^4.5.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "koa": "^2.13.0",
+    "koa-static-server": "^1.5.2",
+    "webpack-cli": "^4.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "webpack & node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
