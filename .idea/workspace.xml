@@ -2,51 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f743c196-9303-460a-83be-563d2032f005" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/client.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/disharmonyService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/monitor/src/httpController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/monitor/src/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/start_client.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/start_monitor.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/client/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/setupTests.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/monitor/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/monitor/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/monitor/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/server.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/src/setupTests.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/src/webpack.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/monitor/webpack.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/start_node.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/disharmonyService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/disharmonyService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monitor/src/httpController.js" beforeDir="false" afterPath="$PROJECT_DIR$/monitor/src/httpController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start_client.sh" beforeDir="false" afterPath="$PROJECT_DIR$/start_client.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +58,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607182344629</updated>
-      <workItem from="1607182348738" duration="24685000" />
+      <workItem from="1607182348738" duration="25087000" />
     </task>
     <servers />
   </component>

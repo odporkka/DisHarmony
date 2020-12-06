@@ -9,7 +9,10 @@ let clientList = [
 
 exports.get = async (ctx) => {
     console.log(`FROM ${ctx.request.ip} GET "/"`)
-    ctx.body = "Hello"
+    ctx.body = {
+        clients: clientList,
+        playlist: playlist
+    }
     ctx.status = 200
 }
 
