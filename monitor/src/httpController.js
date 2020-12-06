@@ -15,7 +15,7 @@ exports.get = async (ctx) => {
     ctx.status = 200
 }
 
-exports.post = async (ctx) => {
+exports.join = async (ctx) => {
     const body = ctx.request.body
     const ip = ctx.request.ip.split(':')[3]
     console.log(`FROM ${ip} POST "/": ${JSON.stringify(body)}`)
@@ -48,6 +48,7 @@ exports.post = async (ctx) => {
     ctx.body = {
         message: "Welcome!",
         clientList: clientList,
+        yourName: ip
     }
     ctx.status = 200
 }

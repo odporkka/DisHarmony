@@ -9,7 +9,7 @@ app.use(bodyParser())
 
 const monitorRouter = new Router()
 monitorRouter.get('/', httpController.get)
-monitorRouter.post('/', httpController.post)
+monitorRouter.post('/', httpController.join)
 app.use(monitorRouter.routes())
 app.use(monitorRouter.allowedMethods())
 

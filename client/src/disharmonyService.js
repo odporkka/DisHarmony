@@ -1,5 +1,6 @@
 const axios = require('axios')
 
+let clientName = undefined
 let playlist = [
 
 ]
@@ -10,6 +11,7 @@ let clientList = [
 exports.get = async (ctx) => {
     console.log(`FROM ${ctx.request.ip} GET "/"`)
     ctx.body = {
+        clientName: clientName,
         clients: clientList,
         playlist: playlist
     }
@@ -55,5 +57,6 @@ exports.informMonitor = async () => {
     console.log('RESPONSE http://monitor:3000:', JSON.stringify(response.data))
     playlist = response.data.playlist
     clientList = response.data.clientList
+    clientName = response.data.yourName
     return response.data
 }
