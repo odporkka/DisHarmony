@@ -5,9 +5,7 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 RUN npm install
-
-COPY src ./src
-COPY public ./public
+COPY src /usr/src/app/src
 
 ENV PORT=3001
 EXPOSE 3001

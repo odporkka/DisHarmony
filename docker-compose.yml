@@ -12,11 +12,13 @@ services:
     command: ['npm', 'start']
 #    command: ["sh", "-c", "sleep 2073600"]
 
-  node:
-    build: ./client
-    ports:
-      - 3001:3001
-    volumes:
-      - ./client/src:/usr/src/app/src
-    command: [ 'npm', 'start' ]
-#    command: ["sh", "-c", "sleep 2073600"]
+#  node:
+#    build: ./client
+#    ports:
+#      - 3001:3001
+#    volumes:
+#      - ./client/src:/usr/src/app/src
+#    depends_on:
+#      - monitor
+#    command: [ 'npm', 'start' ]
+##    command: ["sh", "-c", "sleep 2073600"]

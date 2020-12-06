@@ -5,12 +5,9 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 RUN npm install
+COPY src /usr/src/app/src
 
-COPY src ./src
-COPY public ./public
-COPY server.js ./server.js
-COPY webpack.config.js ./webpack.config.js
-
+ENV PORT=3000
 EXPOSE 3000
 
 CMD ["npm", "start"]
