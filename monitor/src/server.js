@@ -9,7 +9,8 @@ app.use(bodyParser())
 
 const monitorRouter = new Router()
 monitorRouter.get('/', httpController.get)
-monitorRouter.post('/', httpController.join)
+monitorRouter.post('/join', httpController.join)
+monitorRouter.post('/unreachable', httpController.removeClient)
 app.use(monitorRouter.routes())
 app.use(monitorRouter.allowedMethods())
 

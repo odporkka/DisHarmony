@@ -1,11 +1,20 @@
 const Koa = require('koa')
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser')
-
+const lamport = require('./lamportClock')
 const disharmony = require('./disharmonyService')
 
 const app = new Koa()
 app.use(bodyParser())
+
+// Client list globally so that lamport can use it
+global.clientName = undefined
+global.clientList = []
+global.playlist = []
+global.eventQueue = []
+
+// Lamport clock for totally ordered events
+app.use(lamport.onReceive)
 
 const clientRouter = new Router()
 clientRouter.get('/', disharmony.get)
@@ -15,10 +24,7 @@ app.use(clientRouter.allowedMethods())
 
 app.listen(9999)
 
-// Broadcast when joining here?
-    // init.scan().then((devices) => console.log('client', devices))
-
-disharmony.informMonitor().then()
-
 console.log('DisHarmony client started..')
+disharmony.joinNetwork().then((state) => console.log("Joined network, current state: ", state))
+
 

@@ -1,30 +1,13 @@
 const axios = require('axios')
-
-let clientName = undefined
-let playlist = [
-
-]
-let clientList = [
-
-]
-
-exports.get = async (ctx) => {
-    console.log(`FROM ${ctx.request.ip} GET "/"`)
-    ctx.body = {
-        clientName: clientName,
-        clients: clientList,
-        playlist: playlist
-    }
-    ctx.status = 200
-}
+const lamport = require('./lamportClock')
 
 exports.post = async (ctx) => {
     const body = ctx.request.body
-    console.log(`FROM ${ctx.request.ip} POST "/": ${JSON.stringify(body)}`)
     let responseBody = {}
 
     switch (body.type) {
         case "NEW_USER":
+        case "REMOVE_USER":
             clientList = body.clientList
             console.log('New client list: ')
             console.log(clientList)
@@ -33,10 +16,13 @@ exports.post = async (ctx) => {
                 clientList: clientList,
             }
             break
+        case "NEW_SONG_REQUEST":
+            responseBody = { message: "Song request accepted!"}
+            lamport.multicast({type: "ADD_SONG", message: body.message}).then()
+            break
         default:
             break
     }
-
     ctx.body = responseBody
     ctx.status = 200
 }
@@ -46,17 +32,46 @@ exports.post = async (ctx) => {
  *
  * @returns {Promise<*>}
  */
-exports.informMonitor = async () => {
-    console.log('TO http://monitor:3000: { message: "Hello! I want to join!" }')
+exports.joinNetwork = async () => {
+    console.log('TO http://monitor:3000/join: { message: "Hello! I want to join!" }')
     let response = undefined
     try {
-        response = await axios.post('http://monitor:3000', { message: "Hello! I want to join!" })
+        // Monitor doesn't use lamport clock
+        response = await axios.post('http://monitor:3000/join', { message: "Hello! I want to join!" })
     } catch (e) {
         console.log('error')
     }
     console.log('RESPONSE http://monitor:3000:', JSON.stringify(response.data))
-    playlist = response.data.playlist
-    clientList = response.data.clientList
-    clientName = response.data.yourName
-    return response.data
+    global.clientList = response.data.clientList
+    global.clientName = response.data.yourName
+    for (let client of clientList) {
+        if (client === clientName) continue
+        try {
+            // Getting initial state doesn't need lamport clock
+            const response = await axios.get(`http://${client}:9999`)
+            if (response.data.playlist && response.data.lamportClock) {
+                lamport.setClock(response.data.lamportClock)
+                global.playlist = response.data.playlist
+                console.log(`INITIAL STATE from ${client}`)
+                break
+            }
+        } catch (e) {
+        }
+    }
+    return getState()
+}
+
+exports.get = async (ctx) => {
+    ctx.body = getState()
+    ctx.status = 200
+}
+
+const getState = () => {
+    return {
+        clientName: clientName,
+        lamportClock: lamport.getClock(),
+        eventQueue: global.eventQueue,
+        clientList: global.clientList,
+        playlist: global.playlist,
+    }
 }
