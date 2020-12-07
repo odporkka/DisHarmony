@@ -71,7 +71,12 @@ const checkAndRemoveClient = async (client) => {
             clientList.splice(index, 1)
             console.log(`Client ${client} removed from local list!`)
         }
-        multiCast({ type: "REMOVE_USER", message: `Client ${client} removed!`,clientList: clientList })
+        multiCast({
+            type: "REMOVE_USER",
+            message: `Client ${client} removed!`,
+            clientList: clientList,
+            removed: client
+        })
     }
 }
 

@@ -8,9 +8,14 @@ exports.post = async (ctx) => {
     switch (body.type) {
         case "NEW_USER":
         case "REMOVE_USER":
-            clientList = body.clientList
-            console.log('New client list: ')
-            console.log(clientList)
+            // Adjust clientList as monitor has it
+            global.clientList = body.clientList
+            // Remove dropped client from ackLists if present
+            global.eventQueue.forEach((event) => {
+                event.ackList = event.ackList.filter((entry) => (entry.client !== body.removed))
+            })
+            console.log('Checking eventQueue..')
+            lamport.checkAcks()
             responseBody = {
                 message: "OK!",
                 clientList: clientList,

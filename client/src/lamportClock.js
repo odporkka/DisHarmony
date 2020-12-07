@@ -36,11 +36,21 @@ const multicast = async (data) => {
 
 const checkAcks = () => {
     const first = global.eventQueue[0]
+    if (!first) {
+        console.log('Nothing on list.')
+        return
+    }
     if (first.ackList.every((client) => (client.ack === true))) {
         console.log('All ACKs received for the first entry in the queue!')
         global.playlist.push(first.song)
         global.eventQueue.shift()
+    } else {
+        console.log(`Song ${first.song} is waiting for ACKs!`)
     }
+}
+
+exports.checkAcks = () => {
+    checkAcks()
 }
 
 exports.onReceive = async (ctx, next) => {
