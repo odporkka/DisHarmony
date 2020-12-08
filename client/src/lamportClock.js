@@ -13,7 +13,7 @@ let lamportClock = 1
 exports.onReceive = async (ctx, next) => {
     const body = ctx.request.body
     const senderIp = ctx.request.ip.split(':')[3]
-    console.log(`${(ctx.request.method)} "${ctx.request.url}" FROM ${senderIp}: ${JSON.stringify(body)}`)
+    console.log(`${(ctx.request.method)} "${ctx.request.url}" FROM ${senderIp}: ${JSON.stringify(body, null, 2)}`)
     // Skip to next middleware if no body
     if (!body) await next()
 
@@ -21,41 +21,64 @@ exports.onReceive = async (ctx, next) => {
         // Adjust own clock on receive
         lamportClock = (body.lamportClock > lamportClock) ? body.lamportClock +1 : lamportClock +1
         switch (body.type) {
+            // New song suggestion
             case "ADD_SONG":
+                // Push new entry to the end
                 global.eventQueue.push({
-                    clock: lamportClock,
+                    clock: body.lamportClock,
                     song: body.message,
                     by: senderIp,
                     ackList: global.clientList.map((client) => ({client:client, ack: false}))
                 })
+                // Check and adjust clocks if needed
+                checkQueueClocks(body)
+                // Sort the event array so that one with the smallest clock value is first
                 global.eventQueue.sort((a, b) => a.clock.localeCompare(b.clock))
+                // Multicast ACK to all the other clients
                 multicast({type: "ACK_SONG", song: body.message, by: senderIp})
+                // Respond back to client who suggested the song. This just closes the connection.
                 ctx.body = { message: `${body.message} added to eventQueue.` }
                 ctx.status = 200
                 return
+            // ACKs from all the clients
             case "ACK_SONG":
+                // Find the entry in the event queue
                 const entry = global.eventQueue.find((e) => (e.song === body.song && e.by === body.by))
                 if (entry) {
+                    // Mark the ACK received
                     const clientAck = entry.ackList.find((e) => (e.client === senderIp))
                     clientAck.ack = true
+                    // Check if everything is ACKed and add to playlist if is
                     checkAcks()
+                    // Respond back to ACK just to close the connection.
                     ctx.body = { message: "OK!" }
                     ctx.status = 200
                     return
-                } else {
-                    // Not yet received initial request, storing ack anyway
-                    // TODO
-                    global.eventQueue.push({
-                        clock: undefined,
-                        song: body.song,
-                        by: body.by,
-                        ackList: global.clientList.map((client) => ({client:client, ack: false}))
-                    })
                 }
                 break
         }
     }
     await next()
+}
+
+/**
+ * Checks if same clock value exists. Decide by client address then.
+ *
+ * @param body
+ */
+const checkQueueClocks = (body) => {
+    const entryWithSameClock = eventQueue.find((event) => (event.clock === body.lamportClock))
+    // If no same clock value found, do nothing
+    if (!entryWithSameClock) return
+
+    if (entryWithSameClock.by < body.by) {
+        // Increment duplicates clock value by 1
+        entryWithSameClock.clock++
+    } else {
+        // Increment new entry's clock
+        const newEntry = eventQueue[eventQueue.length -1]
+        newEntry.clock++
+    }
 }
 
 /**
@@ -65,7 +88,7 @@ exports.onReceive = async (ctx, next) => {
  * @returns {Promise<void>}
  */
 const multicast = async (data) => {
-    // Set own clock when sending
+    // Adjust own clock when sending
     lamportClock++
     for (let client of global.clientList) {
         try {
