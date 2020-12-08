@@ -1,6 +1,28 @@
 const axios = require('axios')
 const lamport = require('./lamportClock')
+const perf = require('./performance')
 
+/**
+ * GET controller function.
+ * Returns status of the node.
+ *
+ * @param ctx
+ * @returns {Promise<void>}
+ */
+exports.get = async (ctx) => {
+    ctx.body = getState()
+    ctx.status = 200
+}
+
+/**
+ * POST controller function.
+ * Takes in requests from the monitor and user.
+ * After posting the suggestion the actual addition process
+ * started lamportClock.js
+ *
+ * @param ctx
+ * @returns {Promise<void>}
+ */
 exports.post = async (ctx) => {
     const body = ctx.request.body
     let responseBody = {}
@@ -22,6 +44,7 @@ exports.post = async (ctx) => {
             }
             break
         case "NEW_SONG_REQUEST":
+            perf.mark("add-song-start")
             responseBody = { message: "Song request accepted!"}
             lamport.multicast({type: "ADD_SONG", message: body.message}).then()
             break
@@ -33,7 +56,7 @@ exports.post = async (ctx) => {
 }
 
 /**
- * Inform monitor on startup
+ * Inform monitor on startup.
  *
  * @returns {Promise<*>}
  */
@@ -64,11 +87,6 @@ exports.joinNetwork = async () => {
         }
     }
     return getState()
-}
-
-exports.get = async (ctx) => {
-    ctx.body = getState()
-    ctx.status = 200
 }
 
 const getState = () => {

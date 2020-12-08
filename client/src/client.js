@@ -7,13 +7,13 @@ const disharmony = require('./disharmonyService')
 const app = new Koa()
 app.use(bodyParser())
 
-// Client list globally so that lamport can use it
+// Global variables
 global.clientName = undefined
 global.clientList = []
 global.playlist = []
 global.eventQueue = []
 
-// Lamport clock for totally ordered events
+// Lamport clock middleware for totally ordered events
 app.use(lamport.onReceive)
 
 const clientRouter = new Router()
@@ -24,6 +24,10 @@ app.use(clientRouter.allowedMethods())
 
 app.listen(9999)
 
+/*
+ * After client has started (is ready to accept connections)
+ * it contacts monitor for client information/node discovery
+ */
 console.log('DisHarmony client started..')
 disharmony.joinNetwork().then((state) => console.log("Joined network, current state: ", state))
 
